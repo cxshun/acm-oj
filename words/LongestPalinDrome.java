@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: shun
@@ -9,17 +12,9 @@ public class LongestPalinDrome {
 
     public static void main(String[] args) {
 
-        String str = "lcnvoknqgejxbfhijmxglisfzjwbtvhodwummdqeggzfczmetrdnoetmcydwddmtubcqmdjwnpzdqc" +
-                "dhplxtezctvgnpobnnscrmeqkwgiedhzsvskrxwfyklynkplbgefjbyhlgmkkfpwngdkvwmbdskvagkcfsidrd" +
-                "gwgmnqjtdbtltzwxaokrvbxqqqhljszmefsyewwggylpugmdmemvcnlugipqdjnriythsanfdxpvbatsnatmluss" +
-                "pqizgknabhnqayeuzflkuysqyhfxojhfponsndytvjpbzlbfzjhmwoxcbwvhnvnzwmkhjxvuszgtqhctbqsxnasn" +
-                "hrusodeqmzrlcsrafghbqjpyklaaqximcjmpsxpzbyxqvpexytrhwhmrkuybtvqhwxdqhsnbecpfiudaqpzsvfaywv" +
-                "khargputojdxonvlprzwvrjlmvqmrlftzbytqdusgeupuofhgonqoyffhmartpcbgybshllnjaapaixdbbljvjomdr" +
-                "rgfeqhwffcknmcqbhvulwiwmsxntropqzefwboozphjectnudtvzzlcmeruszqxvjgikcpfclnrayokxsqxpicfkva" +
-                "erljmxchwcmxhtbwitsexfqowsflgzzeynuzhtzdaixhjtnielbablmckqzcccalpuyahwowqpcskjencokprybrpmpd" +
-                "nswslpunohafvminfolekdleusuaeiatdqsoatputmymqvxjqpikumgmxaxidlrlfmrhpkzmnxjtvdnopcgsiedvtfklt" +
-                "vplfcfflmwyqffktsmpezbxlnjegdlrcubwqvhxdammpkwkycrqtegepyxtohspeasrdtinjhbesilsvffnzznltsspjw" +
-                "uogdyzvanalohmzrywdwqqcukjceothydlgtocukc";
+        String str = "bbbb";
+
+
         String result = "";
         if (str.length() >= 1) {
             long startTime = System.currentTimeMillis();
@@ -31,32 +26,34 @@ public class LongestPalinDrome {
     }
 
     private static final String getLongestPalinDrome(String s) {
-        if (s.length() <= 1) {
+        if (s == null || s.length() == 0) {
             return "";
         }
 
-        String longestPalinDromeStr = "";
-        char[] tmpChar = null;
-        //do some recursive to get the substring
-        for (int i = 0; i < s.length(); i ++) {
-            for (int j = s.length() - 1; j >= i; j --) {
-                tmpChar = s.substring(i, j + 1).toCharArray();
-                for (int k = 0,l = tmpChar.length - 1; k < tmpChar.length && k <= l; k ++, l --) {
-                    if (k <= l) {
-                        if (tmpChar[k] == tmpChar[l]) {
-                            continue;
-                        }
-                        //if not equals then break
-                        tmpChar = new char[0];
-                        break;
-                    }
-                }
-                if (longestPalinDromeStr.length() <= tmpChar.length) {
-                    longestPalinDromeStr = new String(tmpChar);
-                }
-            }
+        if (s.length() == 1) {
+            return s;
         }
-        return longestPalinDromeStr;
+
+        String longestPalinDrome = s.substring(0, 1);
+        //do some recursive to get the substring
+        String tmp = "";
+        for (int i = 0; i < s.length(); i ++) {
+            tmp = getHalfString(s, i, i);
+            if (tmp.length() > longestPalinDrome.length()) {
+                longestPalinDrome = tmp;
+            }
+
+        }
+
+        return longestPalinDrome;
+    }
+
+    private static String getHalfString(String str, int start, int end) {
+        while(start >= 0 && end < str.length() && str.charAt(start) == str.charAt(end)) {
+            start --;
+            end ++;
+        }
+        return str.substring(start + 1, end);
     }
 
 }
