@@ -43,6 +43,10 @@ public class LongestPalinDrome {
                 longestPalinDrome = tmp;
             }
 
+            tmp = getHalfString(s, i, i + 1 );
+            if (tmp.length() > longestPalinDrome.length()) {
+                longestPalinDrome = tmp;
+            }
         }
 
         return longestPalinDrome;
