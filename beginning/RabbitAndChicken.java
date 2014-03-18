@@ -23,11 +23,16 @@ public class RabbitAndChicken {
             int totalCount = Integer.valueOf(str.split(" ")[0]);
             int totalFootCount = Integer.valueOf(str.split(" ")[1]);
 
-            if (totalCount >= 0 && totalFootCount >= 0 && (totalFootCount - 2 * totalCount) >= 0) {
+            if ((totalFootCount - 2 * totalCount) >= 0) {
                 int rabbitCount = (totalFootCount - 2 * totalCount) / 2;
                 if ((totalFootCount - 2 * totalCount) % 2 != 0) {
                     System.out.println("No answer");
-                    break;
+                    continue;
+                }
+
+                if (totalCount < rabbitCount) {
+                    System.out.println("No answer");
+                    continue;
                 }
                 int chickenCount = totalCount - rabbitCount;
 
